@@ -1,0 +1,5 @@
+# Project exclude paths
+/.gradle/
+/batch/build/
+/batch/build/classes/java/main/
+/build/
