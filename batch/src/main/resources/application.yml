@@ -1,0 +1,12 @@
+spring:
+  batch:
+    job:
+      names: SYNC_GAME_QUEUE_JOB
+    jdbc:
+      initialize-schema: always
+  main:
+    banner-mode: off
+
+  profiles:
+    group:
+      local: data

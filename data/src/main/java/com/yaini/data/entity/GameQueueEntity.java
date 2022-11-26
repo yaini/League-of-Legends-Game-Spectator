@@ -16,16 +16,16 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "queue")
 public class GameQueueEntity {
-	@Id
-	@Column(name = "game_queue_id", nullable = false)
-	private Long id;
+  @Id
+  @Column(name = "game_queue_id", nullable = false)
+  private Long id;
 
-	@Column(nullable = false)
-	private String map;
+  @Column(nullable = false)
+  private String map;
 
-	@Column(nullable = false)
-	private String description;
+  @Column(nullable = false)
+  private String description;
 
-	@Column(nullable = false)
-	private String notes;
+  @Column(nullable = false)
+  private String notes;
 }

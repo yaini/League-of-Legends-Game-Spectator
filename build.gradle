@@ -10,6 +10,7 @@ ext {
 	queryDslVersion = '5.0.0'
 	hibernateValidatorVersion = '8.0.0.Final'
 	guavaVersion = '31.1-jre'
+	gsonVersion = '2.7'
 }
 
 group 'com.yaini'
