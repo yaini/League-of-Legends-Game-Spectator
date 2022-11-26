@@ -14,8 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "queue")
-public class GameQueueEntity {
+@Table(name = "game_queue")
+public class GameQueueEntity extends AuditEntity {
   @Id
   @Column(name = "game_queue_id", nullable = false)
   private Long id;

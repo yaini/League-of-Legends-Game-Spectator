@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "summoner")
-public class SummonerEntity {
+public class SummonerEntity extends AuditEntity {
   @Id
   @Column(name = "summoner_id", nullable = false)
   private String id;

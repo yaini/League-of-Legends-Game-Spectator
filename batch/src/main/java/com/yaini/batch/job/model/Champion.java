@@ -1,4 +1,4 @@
-package com.yaini.batch.domain.model;
+package com.yaini.batch.job.model;
 
 public class Champion {
   private String id;

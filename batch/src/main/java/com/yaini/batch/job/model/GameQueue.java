@@ -1,4 +1,4 @@
-package com.yaini.batch.domain.model;
+package com.yaini.batch.job.model;
 
 import lombok.Getter;
 import lombok.ToString;

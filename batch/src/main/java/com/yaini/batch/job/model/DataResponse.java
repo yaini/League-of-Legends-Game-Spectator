@@ -1,4 +1,4 @@
-package com.yaini.batch.domain.model;
+package com.yaini.batch.job.model;
 
 public class DataResponse<T> {
   private String type;

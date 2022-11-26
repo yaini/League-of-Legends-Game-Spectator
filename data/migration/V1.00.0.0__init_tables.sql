@@ -26,9 +26,9 @@ CREATE TABLE game_queue
 
 CREATE TABLE summoner
 (
-	`summoner_id`			BIGINT			NOT NULL,
-	`account_id`			VARCHAR(200)	NOT NULL,
-	`puuid`					VARCHAR(200)	NOT NULL,
+	`summoner_id`			VARCHAR(70)		NOT NULL,
+	`account_id`			VARCHAR(70)		NOT NULL,
+	`puuid`					VARCHAR(100)	NOT NULL,
 	`name`					VARCHAR(200)	NOT NULL,
 	`profile_icon_id`		BIGINT			NOT NULL,
 	`revision_date`			BIGINT			NOT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE summoner
 CREATE TABLE summoner_game_relation
 (
 	`summoner_game_relation_id`	BIGINT			NOT NULL,
-	`summoner_account_id`		VARCHAR(200)	NOT NULL,
+	`summoner_account_id`		VARCHAR(70)		NOT NULL,
 	`game_id`					BIGINT			NOT NULL,
 	`first_spell`				BIGINT			NOT NULL,
 	`second_spell`				BIGINT			NOT NULL,

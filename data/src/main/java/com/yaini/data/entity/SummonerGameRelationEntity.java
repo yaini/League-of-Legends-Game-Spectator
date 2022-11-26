@@ -16,12 +16,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "summoner_game")
-public class SummonerGameRelationEntity {
+@Table(name = "summoner_game_relation")
+public class SummonerGameRelationEntity extends AuditEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "summoner_game_relation_id", nullable = false)
-  private String id;
+  @Column(name = "summoner_game_relation_id")
+  private Long id;
 
   @Column(nullable = false)
   private String summonerAccountId;
