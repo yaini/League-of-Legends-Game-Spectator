@@ -1,5 +1,7 @@
-package com.yaini.batch.data.entity;
+package com.yaini.data.entity;
 
+import com.yaini.data.enumerated.GameMode;
+import com.yaini.data.enumerated.GameType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,25 +16,30 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "summoner")
-public class SummonerEntity {
-  @Id private String id;
+@Table(name = "game")
+public class GameEntity {
+  @Id
+  @Column(name = "game_id", nullable = false)
+  private Long id;
 
   @Column(nullable = false)
-  private String accountId;
+  private Long mapId;
 
   @Column(nullable = false)
-  private String puuid;
+  private GameMode gameMode;
 
   @Column(nullable = false)
-  private String name;
+  private GameType gameType;
 
   @Column(nullable = false)
-  private Long profileIconId;
+  private Long gameQueueId;
 
   @Column(nullable = false)
-  private Long revisionDate;
+  private Long gameStartTime;
 
   @Column(nullable = false)
-  private Integer summonerLevel;
+  private Long gameLength;
+
+  @Column(nullable = false)
+  private String participants;
 }

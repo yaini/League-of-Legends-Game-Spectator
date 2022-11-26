@@ -1,4 +1,4 @@
-package com.yaini.batch.data.entity.enumerated;
+package com.yaini.data.enumerated;
 
 public enum Region {
   KR,

@@ -1,4 +1,4 @@
-package com.yaini.batch.data.entity;
+package com.yaini.data.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,14 +16,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "summoner")
+@Table(name = "summoner_game")
 public class SummonerGameRelationEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "summoner_game_relation_id", nullable = false)
   private String id;
 
   @Column(nullable = false)
-  private String summonerId;
+  private String summonerAccountId;
 
   @Column(nullable = false)
   private Long gameId;
