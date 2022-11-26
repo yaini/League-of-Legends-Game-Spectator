@@ -23,9 +23,7 @@ public class GameQueueEntity extends AuditEntity {
   @Column(nullable = false)
   private String map;
 
-  @Column(nullable = false)
-  private String description;
+  @Column private String description;
 
-  @Column(nullable = false)
-  private String notes;
+  @Column private String notes;
 }

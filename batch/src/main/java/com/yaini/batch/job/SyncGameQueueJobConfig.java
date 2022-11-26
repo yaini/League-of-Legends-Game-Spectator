@@ -4,6 +4,7 @@ import com.yaini.batch.job.step.SyncGameQueueStep;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
+import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,6 +27,10 @@ public class SyncGameQueueJobConfig {
   @Bean(JOB_NAME)
   public Job batchJob() {
 
-    return jobBuilderFactory.get(JOB_NAME).start(syncGameQueueStep).build();
+    return jobBuilderFactory
+        .get(JOB_NAME)
+        .incrementer(new RunIdIncrementer())
+        .start(syncGameQueueStep)
+        .build();
   }
 }

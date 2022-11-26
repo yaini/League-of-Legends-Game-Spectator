@@ -17,8 +17,8 @@ CREATE TABLE game_queue
 (
 	`game_queue_id`			BIGINT			NOT NULL,
 	`map`					VARCHAR(255)	NOT NULL,
-	`description`			VARCHAR(255)	NOT NULL,
-	`notes`					VARCHAR(255)	NOT NULL,
+	`description`			VARCHAR(255),
+	`notes`					VARCHAR(255),
 	`create_date`			DATETIME(6)		NOT NULL,
 	`update_date`			DATETIME(6)		NOT NULL,
     PRIMARY KEY (game_queue_id)
