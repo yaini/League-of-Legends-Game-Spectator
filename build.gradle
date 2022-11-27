@@ -4,6 +4,7 @@ plugins {
 	id "com.diffplug.spotless" version "6.11.0"
 	id "org.flywaydb.flyway" version "8.2.0"
 	id 'java'
+	id 'groovy'
 }
 
 ext {
@@ -11,6 +12,8 @@ ext {
 	hibernateValidatorVersion = '8.0.0.Final'
 	guavaVersion = '31.1-jre'
 	gsonVersion = '2.7'
+	spockVersion = '2.3-groovy-3.0'
+	equalsverifierVersion = '3.11.1'
 }
 
 group 'com.yaini'

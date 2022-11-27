@@ -10,5 +10,5 @@ import org.springframework.stereotype.Component;
 @JobScope
 @Component
 public class SpectatingJobParameter {
-  @Setter private List<String> summonerNames;
+  @Setter private List<String> summonerAccountIds;
 }

@@ -9,15 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
-import org.springframework.batch.core.configuration.annotation.StepScope;
-import org.springframework.batch.item.ItemReader;
-import org.springframework.batch.item.ItemWriter;
-import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
-import org.springframework.batch.item.json.GsonJsonObjectReader;
-import org.springframework.batch.item.json.builder.JsonItemReaderBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.ClassPathResource;
 
 @RequiredArgsConstructor
 @Configuration
@@ -39,32 +32,11 @@ public class SpectateGameStep {
         .get(STEP_NAME)
         .<GameQueue, GameQueueEntity>chunk(CHUNK_SIZE)
         // API로 가져옴
-        .reader(gameQueueItemReader())
+        // .reader(gameQueueItemReader())
         // 있는지 확인
-        .processor(gameQueueProcessor)
+        // .processor(gameQueueProcessor)
         // 없으면 저장, 발송
-        .writer(tempItemWriter())
-        .build();
-  }
-
-  @Bean
-  @StepScope
-  public ItemReader<GameQueue> gameQueueItemReader() {
-
-    return new JsonItemReaderBuilder<GameQueue>()
-        .name(STEP_NAME + "_READER")
-        .resource(new ClassPathResource(RESOURCE_PATH))
-        .jsonObjectReader(new GsonJsonObjectReader<>(GameQueue.class))
-        .build();
-  }
-
-  @Bean
-  @StepScope
-  public ItemWriter<GameQueueEntity> tempItemWriter() {
-
-    return new JpaItemWriterBuilder<GameQueueEntity>()
-        .entityManagerFactory(this.entityManagerFactory)
-        .usePersist(false)
+        // .writer(tempItemWriter())
         .build();
   }
 }

@@ -7,10 +7,15 @@ import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+@ConditionalOnProperty(
+    prefix = "spring.batch.job",
+    value = "names",
+    havingValue = SpectateGameJobConfig.JOB_NAME)
 public class SpectateGameJobConfig {
 
   public static final String JOB_NAME = "SPECTATE_GAME_JOB";
@@ -29,7 +34,7 @@ public class SpectateGameJobConfig {
   }
 
   @Bean(JOB_NAME)
-  public Job batchJob() {
+  public Job spectateGameJob() {
 
     return jobBuilderFactory
         .get(JOB_NAME)

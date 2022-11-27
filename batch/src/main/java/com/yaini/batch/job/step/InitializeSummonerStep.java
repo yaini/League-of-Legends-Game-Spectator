@@ -4,6 +4,7 @@ import com.yaini.batch.domain.query.GetAllSummonerNameQuery;
 import com.yaini.batch.domain.usecase.GetAllSummonerUseCase;
 import com.yaini.batch.job.parameter.SpectatingJobParameter;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
@@ -11,6 +12,7 @@ import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+@Slf4j
 @RequiredArgsConstructor
 @Configuration
 public class InitializeSummonerStep {
@@ -28,7 +30,7 @@ public class InitializeSummonerStep {
         .get(STEP_NAME)
         .tasklet(
             (stepContribution, chunkContext) -> {
-              parameter.setSummonerNames(useCase.execute(new GetAllSummonerNameQuery()));
+              parameter.setSummonerAccountIds(useCase.execute(new GetAllSummonerNameQuery()));
 
               return RepeatStatus.FINISHED;
             })
