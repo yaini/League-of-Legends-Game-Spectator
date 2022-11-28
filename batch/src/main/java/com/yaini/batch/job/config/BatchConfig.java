@@ -6,6 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 
 @Configuration
-@ComponentScan({"com.yaini.batch", "com.yaini.data"})
+@ComponentScan("com.yaini.batch")
 @Import({DataConfig.class})
 public class BatchConfig {}

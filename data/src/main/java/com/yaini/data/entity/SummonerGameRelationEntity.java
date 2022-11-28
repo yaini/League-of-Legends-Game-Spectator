@@ -27,7 +27,7 @@ public class SummonerGameRelationEntity extends AuditEntity {
   private Long id;
 
   @Column(nullable = false)
-  private String summonerAccountId;
+  private String summonerId;
 
   @Column(nullable = false)
   private Long gameId;

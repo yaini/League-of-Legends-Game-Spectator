@@ -33,6 +33,7 @@ CREATE TABLE summoner
 	`profile_icon_id`		BIGINT			NOT NULL,
 	`revision_date`			BIGINT			NOT NULL,
 	`summoner_level`		INT				NOT NULL,
+	`region`				VARCHAR(10)		NOT NULL,
 	`create_date`			DATETIME(6)		NOT NULL,
 	`update_date`			DATETIME(6)		NOT NULL,
     PRIMARY KEY (summoner_id)
@@ -41,7 +42,7 @@ CREATE TABLE summoner
 CREATE TABLE summoner_game_relation
 (
 	`summoner_game_relation_id`	BIGINT			NOT NULL,
-	`summoner_account_id`		VARCHAR(70)		NOT NULL,
+	`summoner_id`		VARCHAR(70)		NOT NULL,
 	`game_id`					BIGINT			NOT NULL,
 	`first_spell`				VARCHAR(20)		NOT NULL,
 	`second_spell`				VARCHAR(20)		NOT NULL,

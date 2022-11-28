@@ -38,7 +38,7 @@ public class SyncGameQueueStep {
         .<GameQueue, GameQueueEntity>chunk(CHUNK_SIZE)
         .reader(gameQueueItemReader())
         .processor(gameQueueProcessor)
-        .writer(tempItemWriter())
+        .writer(gameQueueItemWriter())
         .build();
   }
 
@@ -55,7 +55,7 @@ public class SyncGameQueueStep {
 
   @Bean
   @StepScope
-  public ItemWriter<GameQueueEntity> tempItemWriter() {
+  public ItemWriter<GameQueueEntity> gameQueueItemWriter() {
 
     return new JpaItemWriterBuilder<GameQueueEntity>()
         .entityManagerFactory(this.entityManagerFactory)

@@ -1,7 +1,10 @@
 package com.yaini.data.entity;
 
+import com.yaini.data.enumerated.Region;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -37,4 +40,8 @@ public class SummonerEntity extends AuditEntity {
 
   @Column(nullable = false)
   private Integer summonerLevel;
+
+  @Column(nullable = false)
+  @Enumerated(value = EnumType.STRING)
+  private Region region;
 }

@@ -1,5 +1,6 @@
 package com.yaini.batch.job;
 
+import com.yaini.batch.job.step.InitializeActiveGameStep;
 import com.yaini.batch.job.step.InitializeSummonerStep;
 import com.yaini.batch.job.step.SpectateGameStep;
 import org.springframework.batch.core.Job;
@@ -22,14 +23,17 @@ public class SpectateGameJobConfig {
 
   private final JobBuilderFactory jobBuilderFactory;
   private final Step initializeSummonerStep;
+  private final Step initializeActiveGameStep;
   private final Step spectateGameStep;
 
   public SpectateGameJobConfig(
       final JobBuilderFactory jobBuilderFactory,
       final @Qualifier(InitializeSummonerStep.STEP_NAME) Step initializeSummonerStep,
+      final @Qualifier(InitializeActiveGameStep.STEP_NAME) Step initializeActiveGameStep,
       final @Qualifier(SpectateGameStep.STEP_NAME) Step spectateGameStep) {
     this.jobBuilderFactory = jobBuilderFactory;
     this.initializeSummonerStep = initializeSummonerStep;
+    this.initializeActiveGameStep = initializeActiveGameStep;
     this.spectateGameStep = spectateGameStep;
   }
 
@@ -40,7 +44,8 @@ public class SpectateGameJobConfig {
         .get(JOB_NAME)
         .incrementer(new RunIdIncrementer())
         .start(initializeSummonerStep)
-        // .next(spectateGameStep)
+        .next(initializeActiveGameStep)
+        .next(spectateGameStep)
         .build();
   }
 }

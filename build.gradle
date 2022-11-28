@@ -14,6 +14,7 @@ ext {
 	gsonVersion = '2.7'
 	spockVersion = '2.3-groovy-3.0'
 	equalsverifierVersion = '3.11.1'
+	springCloudVersion = '2021.0.5'
 }
 
 group 'com.yaini'

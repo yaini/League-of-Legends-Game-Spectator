@@ -1,7 +1,7 @@
 package com.yaini.batch.job.step;
 
-import com.yaini.batch.domain.query.GetAllSummonerNameQuery;
-import com.yaini.batch.domain.usecase.GetAllSummonerUseCase;
+import com.yaini.batch.domain.query.GetAllActiveGameQuery;
+import com.yaini.batch.domain.usecase.GetAllActiveGameUseCase;
 import com.yaini.batch.job.parameter.SpectatingJobParameter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
@@ -13,13 +13,13 @@ import org.springframework.context.annotation.Configuration;
 
 @RequiredArgsConstructor
 @Configuration
-public class InitializeSummonerStep {
+public class InitializeActiveGameStep {
 
-  public static final String STEP_NAME = "INITIALIZE_SUMMONER_STEP";
+  public static final String STEP_NAME = "INITIALIZE_ACTIVE_GAME_STEP";
 
   private final StepBuilderFactory stepBuilderFactory;
   private final SpectatingJobParameter parameter;
-  private final GetAllSummonerUseCase useCase;
+  private final GetAllActiveGameUseCase useCase;
 
   @Bean(STEP_NAME)
   @JobScope
@@ -28,7 +28,9 @@ public class InitializeSummonerStep {
         .get(STEP_NAME)
         .tasklet(
             (stepContribution, chunkContext) -> {
-              parameter.setSummonerIds(useCase.execute(new GetAllSummonerNameQuery()));
+              GetAllActiveGameQuery query = new GetAllActiveGameQuery(parameter.getSummonerIds());
+
+              parameter.setActiveGames(useCase.execute(query));
 
               return RepeatStatus.FINISHED;
             })

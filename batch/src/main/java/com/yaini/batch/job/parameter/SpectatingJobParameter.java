@@ -1,5 +1,6 @@
 package com.yaini.batch.job.parameter;
 
+import com.yaini.batch.job.model.Game;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,5 +11,6 @@ import org.springframework.stereotype.Component;
 @JobScope
 @Component
 public class SpectatingJobParameter {
-  @Setter private List<String> summonerAccountIds;
+  @Setter private List<String> summonerIds;
+  @Setter private List<Game> activeGames;
 }

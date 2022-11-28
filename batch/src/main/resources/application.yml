@@ -2,9 +2,25 @@ spring:
   batch:
     jdbc:
       initialize-schema: always
+    job:
+      names: SPECTATE_GAME_JOB
   main:
     banner-mode: off
 
   profiles:
     group:
       local: data
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: full
+logging.level.com.yaini.batch.client.web: DEBUG
+
+
+riot:
+  kr:
+    uri: "https://kr.api.riotgames.com"
+  api-key: ${RIOT_API_KEY}
