@@ -3,6 +3,7 @@ package com.yaini.batch.job.converter;
 import com.yaini.batch.client.web.vo.CurrentGameInfoResponse;
 import com.yaini.batch.client.web.vo.ParticipantsResponse;
 import com.yaini.batch.job.model.Game;
+import com.yaini.batch.job.model.Summoner;
 import com.yaini.data.entity.GameEntity;
 import java.util.HashMap;
 import java.util.List;
@@ -13,11 +14,12 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public class GameConverter {
 
-  public static Game from(final String accountId, final CurrentGameInfoResponse response) {
+  public static Game from(final Summoner summoner, final CurrentGameInfoResponse response) {
     if (response == null) {
       return null;
     }
 
+    // TODO
     Map<String, ParticipantsResponse> participantsMap =
         response.getParticipants().stream()
             .collect(HashMap::new, (m, v) -> m.put(v.getSummonerId(), v), HashMap::putAll);
@@ -30,14 +32,13 @@ public class GameConverter {
     return Game.builder()
         .id(response.getGameId())
         .mapId(response.getMapId())
-        .summonerId(accountId)
-        .summonerName(participantsMap.get(accountId).getSummonerName())
         .gameMode(response.getGameMode())
         .gameType(response.getGameType())
         .gameQueueId(response.getGameQueueConfigId())
         .participants(String.join(", ", participantsName))
         .gameStartTime(response.getGameStartTime())
         .gameLength(response.getGameLength())
+        .summoner(summoner)
         .build();
   }
 

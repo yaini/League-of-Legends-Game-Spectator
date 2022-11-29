@@ -14,12 +14,11 @@ import lombok.NoArgsConstructor;
 public class Game {
   private Long id;
   private Long mapId;
-  private String summonerId;
-  private String summonerName;
   private GameMode gameMode;
   private GameType gameType;
   private Long gameQueueId;
   private String participants;
   private Long gameStartTime;
   private Long gameLength;
+  private Summoner summoner;
 }

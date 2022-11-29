@@ -9,22 +9,23 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class SpectateGameItemReader implements ItemReader<Game> {
+public class SyncSummonerGameItemReader implements ItemReader<Game> {
 
   private final SpectatingJobParameter jobParameter;
   private List<Game> items;
-  private int index = 0;
+  private int index;
 
   @Override
   public Game read() {
     if (items == null) {
       items = jobParameter.getActiveGames();
+      index = 0;
     }
 
     if (index >= items.size()) {
       return null;
     }
 
-    return items.get(index++);
+    return items.get(index);
   }
 }

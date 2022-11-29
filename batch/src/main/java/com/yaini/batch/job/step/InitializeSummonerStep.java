@@ -1,8 +1,8 @@
 package com.yaini.batch.job.step;
 
-import com.yaini.batch.domain.query.GetAllSummonerNameQuery;
-import com.yaini.batch.domain.usecase.GetAllSummonerUseCase;
 import com.yaini.batch.job.parameter.SpectatingJobParameter;
+import com.yaini.batch.job.usecase.GetAllSummonerUseCase;
+import com.yaini.batch.job.usecase.query.GetAllSummonerNameQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
@@ -23,12 +23,12 @@ public class InitializeSummonerStep {
 
   @Bean(STEP_NAME)
   @JobScope
-  public Step initializeJobInfoStep() {
+  public Step initializeSummonerStep() {
     return stepBuilderFactory
         .get(STEP_NAME)
         .tasklet(
             (stepContribution, chunkContext) -> {
-              parameter.setSummonerIds(useCase.execute(new GetAllSummonerNameQuery()));
+              parameter.setSummoners(useCase.execute(new GetAllSummonerNameQuery()));
 
               return RepeatStatus.FINISHED;
             })

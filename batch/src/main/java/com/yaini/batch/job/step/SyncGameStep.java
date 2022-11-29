@@ -1,8 +1,8 @@
 package com.yaini.batch.job.step;
 
 import com.yaini.batch.job.model.Game;
-import com.yaini.batch.job.processor.SpectateGameItemProcessor;
-import com.yaini.batch.job.reader.SpectateGameItemReader;
+import com.yaini.batch.job.processor.SyncGameItemProcessor;
+import com.yaini.batch.job.reader.SyncGameItemReader;
 import com.yaini.data.entity.GameEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
@@ -13,24 +13,23 @@ import org.springframework.context.annotation.Configuration;
 
 @RequiredArgsConstructor
 @Configuration
-public class SpectateGameStep {
+public class SyncGameStep {
 
-  public static final String STEP_NAME = "SPECTATE_GAME_STEP";
+  public static final String STEP_NAME = "SYNC_GAME_STEP";
   public static final int CHUNK_SIZE = 100;
 
   private final StepBuilderFactory stepBuilderFactory;
-  private final SpectateGameItemReader spectateGameItemReader;
-  private final SpectateGameItemProcessor spectateGameItemProcessor;
+  private final SyncGameItemReader syncGameItemReader;
+  private final SyncGameItemProcessor syncGameItemProcessor;
 
   @Bean(STEP_NAME)
   @JobScope
-  public Step initializeJobInfoStep() {
+  public Step syncGameStep() {
     return stepBuilderFactory
         .get(STEP_NAME)
         .<Game, GameEntity>chunk(CHUNK_SIZE)
-        .reader(spectateGameItemReader)
-        .processor(spectateGameItemProcessor)
-        // save and send
+        .reader(syncGameItemReader)
+        .processor(syncGameItemProcessor)
         .writer(items -> items.forEach(System.out::println))
         .build();
   }

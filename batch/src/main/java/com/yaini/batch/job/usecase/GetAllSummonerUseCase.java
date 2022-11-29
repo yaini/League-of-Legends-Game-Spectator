@@ -1,7 +1,7 @@
-package com.yaini.batch.domain.usecase;
+package com.yaini.batch.job.usecase;
 
-import com.yaini.batch.domain.query.GetAllSummonerNameQuery;
-import com.yaini.data.projection.SummonerProjection;
+import com.yaini.batch.job.model.Summoner;
+import com.yaini.batch.job.usecase.query.GetAllSummonerNameQuery;
 import com.yaini.data.repository.SummonerRepository;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,10 +14,10 @@ public class GetAllSummonerUseCase {
 
   private final SummonerRepository repository;
 
-  public List<String> execute(final GetAllSummonerNameQuery query) {
+  public List<Summoner> execute(final GetAllSummonerNameQuery query) {
 
     return repository.findAllBy().stream()
-        .map(SummonerProjection::getId)
+        .map(v -> new Summoner(v.getId(), v.getName()))
         .collect(Collectors.toUnmodifiableList());
   }
 }

@@ -32,7 +32,7 @@ public class SyncGameQueueStep {
 
   @Bean(STEP_NAME)
   @JobScope
-  public Step initializeJobInfoStep() {
+  public Step syncGameQueueStep() {
     return stepBuilderFactory
         .get(STEP_NAME)
         .<GameQueue, GameQueueEntity>chunk(CHUNK_SIZE)

@@ -1,4 +1,4 @@
-package com.yaini.batch.domain.query;
+package com.yaini.batch.job.usecase.query;
 
 import lombok.NoArgsConstructor;
 
