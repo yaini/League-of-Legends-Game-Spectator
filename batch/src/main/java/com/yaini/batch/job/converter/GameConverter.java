@@ -19,7 +19,6 @@ public class GameConverter {
       return null;
     }
 
-    // TODO
     Map<String, ParticipantsResponse> participantsMap =
         response.getParticipants().stream()
             .collect(HashMap::new, (m, v) -> m.put(v.getSummonerId(), v), HashMap::putAll);
@@ -38,7 +37,7 @@ public class GameConverter {
         .participants(String.join(", ", participantsName))
         .gameStartTime(response.getGameStartTime())
         .gameLength(response.getGameLength())
-        .summoner(summoner)
+        .summoner(SummonerConverter.from(participantsMap.get(summoner.getId())))
         .build();
   }
 

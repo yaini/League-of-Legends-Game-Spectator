@@ -1,6 +1,7 @@
 package com.yaini.batch.job.converter;
 
 import com.yaini.batch.job.model.Game;
+import com.yaini.batch.job.model.Summoner;
 import com.yaini.data.entity.SummonerGameRelationEntity;
 import lombok.experimental.UtilityClass;
 
@@ -12,9 +13,14 @@ public class SummonerGameConverter {
       return null;
     }
 
+    Summoner summoner = item.getSummoner();
+
     return SummonerGameRelationEntity.builder()
-        .summonerId(item.getSummoner().getId())
+        .summonerId(summoner.getId())
         .gameId(item.getId())
+        .firstSpell(summoner.getFirstSpell())
+        .secondSpell(summoner.getSecondSpell())
+        .championId(summoner.getChampionId())
         .build();
   }
 }

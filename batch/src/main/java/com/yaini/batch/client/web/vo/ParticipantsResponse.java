@@ -14,4 +14,5 @@ public class ParticipantsResponse {
   private Long spell2Id;
   private String summonerName;
   private String summonerId;
+  private Long championId;
 }

@@ -4,10 +4,14 @@ import com.yaini.batch.job.model.Game;
 import com.yaini.batch.job.processor.SyncGameItemProcessor;
 import com.yaini.batch.job.reader.SyncGameItemReader;
 import com.yaini.data.entity.GameEntity;
+import javax.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.configuration.annotation.StepScope;
+import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,6 +25,7 @@ public class SyncGameStep {
   private final StepBuilderFactory stepBuilderFactory;
   private final SyncGameItemReader syncGameItemReader;
   private final SyncGameItemProcessor syncGameItemProcessor;
+  private final EntityManagerFactory entityManagerFactory;
 
   @Bean(STEP_NAME)
   @JobScope
@@ -30,7 +35,17 @@ public class SyncGameStep {
         .<Game, GameEntity>chunk(CHUNK_SIZE)
         .reader(syncGameItemReader)
         .processor(syncGameItemProcessor)
-        .writer(items -> items.forEach(System.out::println))
+        .writer(gameItemWriter())
+        .build();
+  }
+
+  @Bean
+  @StepScope
+  public ItemWriter<GameEntity> gameItemWriter() {
+
+    return new JpaItemWriterBuilder<GameEntity>()
+        .entityManagerFactory(this.entityManagerFactory)
+        .usePersist(false)
         .build();
   }
 }

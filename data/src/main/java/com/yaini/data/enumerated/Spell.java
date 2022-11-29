@@ -1,5 +1,7 @@
 package com.yaini.data.enumerated;
 
+import java.util.HashMap;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -23,5 +25,16 @@ public enum Spell {
   ULT_BOOK_PLACE_HOLDER(54L),
   ULT_BOOK_SMITE_PLACE_HOLDER(55L);
 
-  private final Long key;
+  private final Long id;
+  private static final Map<Long, Spell> map = new HashMap<>();
+
+  static {
+    for (Spell spell : Spell.values()) {
+      map.put(spell.getId(), spell);
+    }
+  }
+
+  public static Spell get(final Long id) {
+    return map.get(id);
+  }
 }

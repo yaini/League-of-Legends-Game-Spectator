@@ -1,6 +1,6 @@
 package com.yaini.batch.job.model;
 
-public class DataResponse<T> {
+public class DataFormat<T> {
   private String type;
   private String format;
   private String version;
