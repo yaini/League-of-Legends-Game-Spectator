@@ -26,6 +26,6 @@ public class SyncSummonerGameItemReader implements ItemReader<Game> {
       return null;
     }
 
-    return items.get(index);
+    return items.get(index++);
   }
 }

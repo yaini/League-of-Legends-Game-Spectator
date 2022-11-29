@@ -1,5 +1,6 @@
 package com.yaini.batch.job.usecase;
 
+import com.yaini.batch.job.converter.SummonerConverter;
 import com.yaini.batch.job.model.Summoner;
 import com.yaini.batch.job.usecase.query.GetAllSummonerNameQuery;
 import com.yaini.data.repository.SummonerRepository;
@@ -17,7 +18,7 @@ public class GetAllSummonerUseCase {
   public List<Summoner> execute(final GetAllSummonerNameQuery query) {
 
     return repository.findAllBy().stream()
-        .map(v -> new Summoner(v.getId(), v.getName()))
+        .map(SummonerConverter::from)
         .collect(Collectors.toUnmodifiableList());
   }
 }

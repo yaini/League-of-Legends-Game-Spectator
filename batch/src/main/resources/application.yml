@@ -24,4 +24,8 @@ logging.level.com.yaini.batch.client.web: DEBUG
 riot:
   kr:
     uri: "https://kr.api.riotgames.com"
-  api-key: ${RIOT_API_KEY}
+  api-key: ${RIOT_API_KEY:SECRET_KEY}
+
+discord:
+  uri: "https://discord.com/api/webhooks"
+  channel: ${CHANNEL:SECRET_CHANNEL}

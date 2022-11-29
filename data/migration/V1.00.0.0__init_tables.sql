@@ -41,8 +41,8 @@ CREATE TABLE summoner
 
 CREATE TABLE summoner_game_relation
 (
-	`summoner_game_relation_id`	BIGINT			NOT NULL,
-	`summoner_id`		VARCHAR(70)		NOT NULL,
+	`summoner_game_relation_id`	VARCHAR(100)	NOT NULL,
+	`summoner_id`				VARCHAR(70)		NOT NULL,
 	`game_id`					BIGINT			NOT NULL,
 	`first_spell`				VARCHAR(20)		NOT NULL,
 	`second_spell`				VARCHAR(20)		NOT NULL,

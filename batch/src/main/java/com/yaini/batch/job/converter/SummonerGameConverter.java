@@ -16,6 +16,7 @@ public class SummonerGameConverter {
     Summoner summoner = item.getSummoner();
 
     return SummonerGameRelationEntity.builder()
+        .id(summoner.getId() + "_" + item.getId())
         .summonerId(summoner.getId())
         .gameId(item.getId())
         .firstSpell(summoner.getFirstSpell())

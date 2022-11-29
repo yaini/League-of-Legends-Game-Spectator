@@ -24,6 +24,7 @@ dependencies {
 	implementation("org.hibernate:hibernate-validator:${hibernateValidatorVersion}")
 	implementation("com.google.code.gson:gson:${gsonVersion}")
 	implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
+	implementation("com.discord4j:discord4j-core:${discordVersion}")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 
