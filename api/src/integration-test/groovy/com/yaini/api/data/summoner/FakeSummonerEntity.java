@@ -1,4 +1,4 @@
-package com.yaini.batch.data.summoner;
+package com.yaini.api.data.summoner;
 
 import com.yaini.data.entity.SummonerEntity;
 import com.yaini.data.enumerated.Region;
