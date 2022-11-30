@@ -1,0 +1,76 @@
+plugins {
+	id 'org.springframework.boot'
+	id 'io.spring.dependency-management'
+	id 'java'
+	id 'groovy'
+}
+
+group 'com.yaini'
+version '0.0.1-SNAPSHOT'
+
+bootJar.enabled(true)
+jar.enabled(false)
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation project(':data')
+
+	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.springframework.boot:spring-boot-starter-validation")
+
+	compileOnly("org.projectlombok:lombok")
+	annotationProcessor("org.projectlombok:lombok")
+
+	runtimeOnly("mysql:mysql-connector-java")
+
+	testImplementation("org.springframework.batch:spring-batch-test")
+	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("nl.jqno.equalsverifier:equalsverifier:${equalsverifierVersion}")
+	testImplementation("org.spockframework:spock-core:${spockVersion}")
+	testImplementation("org.spockframework:spock-spring:${spockVersion}")
+	testImplementation("org.codehaus.groovy:groovy")
+}
+
+sourceSets {
+	integrationTest {
+		groovy {
+			compileClasspath += main.output + test.output
+			runtimeClasspath += main.output + test.output
+
+			srcDir file('src/integration-test/groovy')
+		}
+
+		resources.srcDir file('src/integration-test/resources')
+	}
+}
+
+configurations {
+	integrationTestImplementation.extendsFrom testImplementation
+	integrationTestCompile.extendsFrom testCompileOnly
+	integrationTestRuntime.extendsFrom testRuntimeOnly
+}
+
+task integrationTest(type: Test) {
+	afterTest { desc, result ->
+		testLogging {
+			showExceptions = true
+			showStackTraces = true
+			showCauses = true
+			exceptionFormat = 'short'
+		}
+		logger.quiet "Executing integration test ${desc.name} [${desc.className}] with result: ${result.resultType}"
+	}
+
+	testClassesDirs = sourceSets.integrationTest.output.classesDirs
+	classpath = sourceSets.integrationTest.runtimeClasspath
+
+	outputs.upToDateWhen { false }
+}
+
+integrationTest {
+	useJUnitPlatform()
+}
