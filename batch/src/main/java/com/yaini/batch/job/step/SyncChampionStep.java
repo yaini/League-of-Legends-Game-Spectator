@@ -1,8 +1,8 @@
 package com.yaini.batch.job.step;
 
-import com.yaini.batch.job.model.GameQueue;
-import com.yaini.batch.job.processor.GameQueueProcessor;
-import com.yaini.data.entity.GameQueueEntity;
+import com.yaini.batch.job.model.Champion;
+import com.yaini.batch.job.processor.ChampionItemProcessor;
+import com.yaini.data.entity.ChampionEntity;
 import javax.persistence.EntityManagerFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Step;
@@ -19,42 +19,42 @@ import org.springframework.core.io.ClassPathResource;
 
 @RequiredArgsConstructor
 @Configuration
-public class SyncGameQueueStep {
+public class SyncChampionStep {
 
-  public static final String STEP_NAME = "SYNC_GAME_QUEUE_STEP";
-  public static final String RESOURCE_PATH = "queues.json";
+  public static final String STEP_NAME = "SYNC_CHAMPION_STEP";
+  public static final String RESOURCE_PATH = "champion.json";
   public static final int CHUNK_SIZE = 100;
 
   private final StepBuilderFactory stepBuilderFactory;
-  private final GameQueueProcessor gameQueueProcessor;
+  private final ChampionItemProcessor championItemProcessor;
   private final EntityManagerFactory entityManagerFactory;
 
   @Bean(STEP_NAME)
   @JobScope
-  public Step syncGameQueueStep() {
+  public Step syncChampionStep() {
     return stepBuilderFactory
         .get(STEP_NAME)
-        .<GameQueue, GameQueueEntity>chunk(CHUNK_SIZE)
-        .reader(gameQueueItemReader())
-        .processor(gameQueueProcessor)
-        .writer(gameQueueItemWriter())
+        .<Champion, ChampionEntity>chunk(CHUNK_SIZE)
+        .reader(championItemReader())
+        .processor(championItemProcessor)
+        .writer(championItemWriter())
         .build();
   }
 
   @Bean
-  public ItemReader<GameQueue> gameQueueItemReader() {
+  public ItemReader<Champion> championItemReader() {
 
-    return new JsonItemReaderBuilder<GameQueue>()
+    return new JsonItemReaderBuilder<Champion>()
         .name(STEP_NAME + "_READER")
         .resource(new ClassPathResource(RESOURCE_PATH))
-        .jsonObjectReader(new GsonJsonObjectReader<>(GameQueue.class))
+        .jsonObjectReader(new GsonJsonObjectReader<>(Champion.class))
         .build();
   }
 
   @Bean
-  public ItemWriter<GameQueueEntity> gameQueueItemWriter() {
+  public ItemWriter<ChampionEntity> championItemWriter() {
 
-    return new JpaItemWriterBuilder<GameQueueEntity>()
+    return new JpaItemWriterBuilder<ChampionEntity>()
         .entityManagerFactory(this.entityManagerFactory)
         .usePersist(false)
         .build();

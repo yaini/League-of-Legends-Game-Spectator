@@ -51,3 +51,12 @@ CREATE TABLE summoner_game_relation
 	`update_date`				DATETIME(6)		NOT NULL,
     PRIMARY KEY (summoner_game_relation_id)
 );
+
+CREATE TABLE champion
+(
+	`champion_id`			BIGINT			NOT NULL,
+	`name`					VARCHAR(100)	NOT NULL,
+	`create_date`			DATETIME(6)		NOT NULL,
+	`update_date`			DATETIME(6)		NOT NULL,
+    PRIMARY KEY (champion_id)
+);

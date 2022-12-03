@@ -1,8 +1,11 @@
 package com.yaini.batch.job.model;
 
-public class DataFormat<T> {
+import lombok.Getter;
+
+@Getter
+public class DataFormat {
   private String type;
   private String format;
   private String version;
-  private T data;
+  private Champion data;
 }
