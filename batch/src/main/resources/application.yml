@@ -3,7 +3,7 @@ spring:
     jdbc:
       initialize-schema: always
     job:
-      names: SYNC_CHAMPION_JOB
+      names: SPECTATE_GAME_JOB
   main:
     banner-mode: off
 
@@ -22,8 +22,11 @@ feign:
 logging.level.com.yaini.batch.client.web: DEBUG
 
 riot:
-  kr:
-    uri: "https://kr.api.riotgames.com"
+  uri:
+    kr: "https://kr.api.riotgames.com"
+    champion: "http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/"
+    spell: "http://ddragon.leagueoflegends.com/cdn/12.22.1/img/spell/"
+    icon: "http://ddragon.leagueoflegends.com/cdn/12.22.1/img/profileicon/5488.png"
   api-key: ${RIOT_API_KEY:SECRET_KEY}
 
 discord:

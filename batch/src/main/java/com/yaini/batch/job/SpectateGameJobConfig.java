@@ -1,6 +1,8 @@
 package com.yaini.batch.job;
 
 import com.yaini.batch.job.step.InitializeActiveGameStep;
+import com.yaini.batch.job.step.InitializeChampionStep;
+import com.yaini.batch.job.step.InitializeGameQueueStep;
 import com.yaini.batch.job.step.InitializeSummonerStep;
 import com.yaini.batch.job.step.SendMessageStep;
 import com.yaini.batch.job.step.SyncGameStep;
@@ -26,6 +28,8 @@ public class SpectateGameJobConfig {
   private final JobBuilderFactory jobBuilderFactory;
   private final Step initializeSummonerStep;
   private final Step initializeActiveGameStep;
+  private final Step initializeGameQueueStep;
+  private final Step initializeChampionStep;
   private final Step syncGameStep;
   private final Step syncSummonerGameStep;
   private final Step sendMessageStep;
@@ -34,12 +38,16 @@ public class SpectateGameJobConfig {
       final JobBuilderFactory jobBuilderFactory,
       final @Qualifier(InitializeSummonerStep.STEP_NAME) Step initializeSummonerStep,
       final @Qualifier(InitializeActiveGameStep.STEP_NAME) Step initializeActiveGameStep,
+      final @Qualifier(InitializeGameQueueStep.STEP_NAME) Step initializeGameQueueStep,
+      final @Qualifier(InitializeChampionStep.STEP_NAME) Step initializeChampionStep,
       final @Qualifier(SyncGameStep.STEP_NAME) Step syncGameStep,
       final @Qualifier(SyncSummonerGameStep.STEP_NAME) Step syncSummonerGameStep,
       final @Qualifier(SendMessageStep.STEP_NAME) Step sendMessageStep) {
     this.jobBuilderFactory = jobBuilderFactory;
     this.initializeSummonerStep = initializeSummonerStep;
     this.initializeActiveGameStep = initializeActiveGameStep;
+    this.initializeGameQueueStep = initializeGameQueueStep;
+    this.initializeChampionStep = initializeChampionStep;
     this.syncGameStep = syncGameStep;
     this.syncSummonerGameStep = syncSummonerGameStep;
     this.sendMessageStep = sendMessageStep;
@@ -53,6 +61,8 @@ public class SpectateGameJobConfig {
         .incrementer(new RunIdIncrementer())
         .start(initializeSummonerStep)
         .next(initializeActiveGameStep)
+        .next(initializeGameQueueStep)
+        .next(initializeChampionStep)
         .next(syncGameStep)
         .next(syncSummonerGameStep)
         .next(sendMessageStep)
