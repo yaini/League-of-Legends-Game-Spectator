@@ -11,12 +11,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.With;
 
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@With
 @Table(name = "summoner_game_relation")
 public class SummonerGameRelationEntity extends AuditEntity {
   @Id
@@ -39,4 +41,7 @@ public class SummonerGameRelationEntity extends AuditEntity {
 
   @Column(nullable = false)
   private Long championId;
+
+  @Column(nullable = false)
+  private Boolean notice;
 }

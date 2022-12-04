@@ -3,7 +3,9 @@ package com.yaini.batch.job;
 import com.yaini.batch.job.step.InitializeActiveGameStep;
 import com.yaini.batch.job.step.InitializeChampionStep;
 import com.yaini.batch.job.step.InitializeGameQueueStep;
+import com.yaini.batch.job.step.InitializeSummonerGameStep;
 import com.yaini.batch.job.step.InitializeSummonerStep;
+import com.yaini.batch.job.step.ProvisioningSummonerGameStep;
 import com.yaini.batch.job.step.SendMessageStep;
 import com.yaini.batch.job.step.SyncGameStep;
 import com.yaini.batch.job.step.SyncSummonerGameStep;
@@ -32,7 +34,9 @@ public class SpectateGameJobConfig {
   private final Step initializeChampionStep;
   private final Step syncGameStep;
   private final Step syncSummonerGameStep;
+  private final Step initializeSummonerGameStep;
   private final Step sendMessageStep;
+  private final Step provisioningSummonerGameStep;
 
   public SpectateGameJobConfig(
       final JobBuilderFactory jobBuilderFactory,
@@ -42,7 +46,9 @@ public class SpectateGameJobConfig {
       final @Qualifier(InitializeChampionStep.STEP_NAME) Step initializeChampionStep,
       final @Qualifier(SyncGameStep.STEP_NAME) Step syncGameStep,
       final @Qualifier(SyncSummonerGameStep.STEP_NAME) Step syncSummonerGameStep,
-      final @Qualifier(SendMessageStep.STEP_NAME) Step sendMessageStep) {
+      final @Qualifier(InitializeSummonerGameStep.STEP_NAME) Step initializeSummonerGameStep,
+      final @Qualifier(SendMessageStep.STEP_NAME) Step sendMessageStep,
+      final @Qualifier(ProvisioningSummonerGameStep.STEP_NAME) Step provisioningSummonerGameStep) {
     this.jobBuilderFactory = jobBuilderFactory;
     this.initializeSummonerStep = initializeSummonerStep;
     this.initializeActiveGameStep = initializeActiveGameStep;
@@ -50,7 +56,9 @@ public class SpectateGameJobConfig {
     this.initializeChampionStep = initializeChampionStep;
     this.syncGameStep = syncGameStep;
     this.syncSummonerGameStep = syncSummonerGameStep;
+    this.initializeSummonerGameStep = initializeSummonerGameStep;
     this.sendMessageStep = sendMessageStep;
+    this.provisioningSummonerGameStep = provisioningSummonerGameStep;
   }
 
   @Bean(JOB_NAME)
@@ -65,7 +73,9 @@ public class SpectateGameJobConfig {
         .next(initializeChampionStep)
         .next(syncGameStep)
         .next(syncSummonerGameStep)
+        .next(initializeSummonerGameStep)
         .next(sendMessageStep)
+        .next(provisioningSummonerGameStep)
         .build();
   }
 }

@@ -6,7 +6,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SummonerGameRelationRepository
-    extends JpaRepository<SummonerGameRelationEntity, Long> {
+    extends JpaRepository<SummonerGameRelationEntity, Long>,
+        SummonerGameRelationQueryDslRepository {
 
   Boolean existsBySummonerIdAndGameId(final String summonerId, final Long gameId);
 }

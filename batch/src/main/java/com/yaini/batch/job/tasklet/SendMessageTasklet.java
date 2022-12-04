@@ -4,8 +4,7 @@ import com.yaini.batch.client.web.DiscordWebClient;
 import com.yaini.batch.client.web.vo.EmbedRequest;
 import com.yaini.batch.client.web.vo.ImageRequest;
 import com.yaini.batch.client.web.vo.MessageRequest;
-import com.yaini.batch.job.model.Game;
-import com.yaini.batch.job.model.Summoner;
+import com.yaini.batch.job.model.SummonerGame;
 import com.yaini.batch.job.parameter.SpectatingJobParameter;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -47,21 +46,20 @@ public class SendMessageTasklet implements Tasklet {
   public RepeatStatus execute(final StepContribution contribution, final ChunkContext chunkContext)
       throws Exception {
 
-    List<Game> games = parameter.getActiveGames();
+    List<SummonerGame> items = parameter.getSummonerGames();
     Map<Long, String> maps = parameter.getGameQueues();
     Map<Long, String> champions = parameter.getChampions();
 
-    for (Game game : games) {
+    for (SummonerGame item : items) {
 
-      Summoner summoner = game.getSummoner();
-      String champion = champions.get(summoner.getChampionId());
-      String map = maps.get(game.getGameQueueId());
+      String champion = champions.get(item.getChampionId());
+      String map = maps.get(item.getGameQueueId());
 
       MessageRequest message =
           MessageRequest.builder()
               .username(SENDER_NAME)
               .avatarUrl(iconImagePath)
-              .embeds(List.of(this.getEmbed(game, map, champion)))
+              .embeds(List.of(this.getEmbed(item, map, champion)))
               .build();
 
       client.getCurrentGameBySummoner(channel, message);
@@ -70,30 +68,29 @@ public class SendMessageTasklet implements Tasklet {
     return RepeatStatus.FINISHED;
   }
 
-  private EmbedRequest getEmbed(final Game game, final String map, final String champion) {
-    if (game == null || game.getSummoner() == null) {
+  private EmbedRequest getEmbed(final SummonerGame item, final String map, final String champion) {
+    if (item == null) {
       return null;
     }
 
-    Summoner summoner = game.getSummoner();
     LocalDateTime startTime =
         LocalDateTime.ofInstant(
-            Instant.ofEpochMilli(game.getGameStartTime()), ZoneId.systemDefault());
+            Instant.ofEpochMilli(item.getGameStartTime()), ZoneId.systemDefault());
 
     String description =
         String.format(
             CONTENT,
-            game.getParticipants(),
-            game.getGameMode(),
-            game.getGameType(),
+            item.getParticipants(),
+            item.getGameMode(),
+            item.getGameType(),
             map,
             startTime,
-            summoner.getFirstSpell(),
-            summoner.getSecondSpell(),
+            item.getFirstSpell(),
+            item.getSecondSpell(),
             champion);
 
     return EmbedRequest.builder()
-        .title(String.format(TITLE, summoner.getName()))
+        .title(String.format(TITLE, item.getName()))
         .description(description)
         .thumbnail(new ImageRequest(championImagePath + champion + ".png"))
         .build();

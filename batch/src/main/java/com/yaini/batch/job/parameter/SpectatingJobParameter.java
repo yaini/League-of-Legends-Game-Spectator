@@ -2,6 +2,7 @@ package com.yaini.batch.job.parameter;
 
 import com.yaini.batch.job.model.Game;
 import com.yaini.batch.job.model.Summoner;
+import com.yaini.batch.job.model.SummonerGame;
 import java.util.List;
 import java.util.Map;
 import lombok.Getter;
@@ -17,4 +18,5 @@ public class SpectatingJobParameter {
   @Setter private List<Game> activeGames;
   @Setter private Map<Long, String> gameQueues;
   @Setter private Map<Long, String> champions;
+  @Setter private List<SummonerGame> summonerGames;
 }

@@ -47,6 +47,7 @@ CREATE TABLE summoner_game_relation
 	`first_spell`				VARCHAR(20)		NOT NULL,
 	`second_spell`				VARCHAR(20)		NOT NULL,
 	`champion_id`				BIGINT			NOT NULL,
+	`notice`					BIT(1)			NOT NULL,
 	`create_date`				DATETIME(6)		NOT NULL,
 	`update_date`				DATETIME(6)		NOT NULL,
     PRIMARY KEY (summoner_game_relation_id)
