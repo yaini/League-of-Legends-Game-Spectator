@@ -5,6 +5,13 @@
 
 </br>
 
+## ERD
+
+<img width="780" alt="image" src="https://user-images.githubusercontent.com/80642154/205928949-8e7dd67e-f859-4e5e-9f3b-524404a8b14f.png">
+
+
+</br>
+
 ## Tech Stack
 
 * Java
