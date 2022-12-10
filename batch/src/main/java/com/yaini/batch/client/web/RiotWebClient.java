@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 @FeignClient(name = "RiotWebClient", url = "${riot.uri.kr}", primary = false)
 public interface RiotWebClient {
 
-  @GetMapping(value = "/lol/spectator/v4/active-games/by-summoner/{encryptedSummonerId}")
+  String ACTIVE_GAME_PATH = "/lol/spectator/v4/active-games/by-summoner/";
+
+  @GetMapping(value = ACTIVE_GAME_PATH + "{encryptedSummonerId}")
   CurrentGameInfoResponse getCurrentGameBySummoner(
       final @RequestHeader("X-Riot-Token") String apiKey,
       final @PathVariable String encryptedSummonerId);

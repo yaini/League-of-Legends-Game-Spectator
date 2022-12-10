@@ -38,10 +38,10 @@ logging.level.com.yaini.batch.client.web: DEBUG
 
 riot:
   uri:
-    kr: "https://kr.api.riotgames.com"
-    champion: "http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/"
-    spell: "http://ddragon.leagueoflegends.com/cdn/12.22.1/img/spell/"
-    icon: "http://ddragon.leagueoflegends.com/cdn/12.22.1/img/profileicon/5488.png"
+    kr: "http://localhost"
+    champion: "http://localhost/cdn/12.22.1/img/champion/"
+    spell: "http://localhost/cdn/12.22.1/img/spell/"
+    icon: "http://localhost/cdn/12.22.1/img/profileicon/5488.png"
   api-key: "SECRET_KEY"
 
 discord:
