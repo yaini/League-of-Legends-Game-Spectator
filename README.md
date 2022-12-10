@@ -22,6 +22,6 @@
 
 </br>
 
-## Preview 
+## Preview
 
 <img width="600" alt="image" src="https://user-images.githubusercontent.com/80642154/205646897-fb8e0899-f12a-4063-8726-938459710207.png">

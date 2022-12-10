@@ -1,5 +1,6 @@
 package com.yaini.batch.job
 
+import com.yaini.batch.BatchIntegrationTestSupport
 import com.yaini.batch.IntegrationTestSupport
 import com.yaini.batch.data.summoner.SummonerDataInitializer
 import com.yaini.data.entity.SummonerEntity
@@ -17,7 +18,7 @@ import java.time.LocalDateTime
 
 @Rollback
 @TestPropertySource(properties = ["spring.batch.job.enabled=false", "spring.batch.job.names=SPECTATE_GAME_JOB"])
-class SpectateGameJobSpec extends IntegrationTestSupport {
+class SpectateGameJobSpec extends BatchIntegrationTestSupport {
 
     @Autowired
     private JobLauncherTestUtils jobLauncherTestUtils

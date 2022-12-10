@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-@FeignClient(name = "RiotWebClient", url = "${riot.uri.kr}")
+@FeignClient(name = "RiotWebClient", url = "${riot.uri.kr}", primary = false)
 public interface RiotWebClient {
 
   @GetMapping(value = "/lol/spectator/v4/active-games/by-summoner/{encryptedSummonerId}")

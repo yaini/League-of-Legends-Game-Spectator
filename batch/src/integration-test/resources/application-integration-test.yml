@@ -4,11 +4,27 @@ spring:
       initialize-schema: always
   main:
     banner-mode: off
-    allow-bean-definition-overriding: true
 
   profiles:
     group:
-      local: data
+      integration-test: data
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:33306/lol
+    username: lol
+    password: lol
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  quartz:
+    auto-startup: false
 
 feign:
   client:
@@ -26,8 +42,8 @@ riot:
     champion: "http://ddragon.leagueoflegends.com/cdn/12.22.1/img/champion/"
     spell: "http://ddragon.leagueoflegends.com/cdn/12.22.1/img/spell/"
     icon: "http://ddragon.leagueoflegends.com/cdn/12.22.1/img/profileicon/5488.png"
-  api-key: ${RIOT_API_KEY:SECRET_KEY}
+  api-key: "SECRET_KEY"
 
 discord:
   uri: "https://discord.com/api/webhooks"
-  channel: ${CHANNEL:SECRET_CHANNEL}
+  channel: "CHANNEL"
