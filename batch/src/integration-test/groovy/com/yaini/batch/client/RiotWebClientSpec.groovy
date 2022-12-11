@@ -11,12 +11,10 @@ import feign.FeignException
 import org.apache.http.protocol.HTTP
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.cloud.contract.wiremock.AutoConfigureWireMock
-import org.springframework.data.crossstore.ChangeSetPersister
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import spock.lang.Subject
 
-import java.time.LocalDateTime
 
 import static com.yaini.batch.client.web.config.FeignConfig.RETRY_MAX_ATTEMPTS
 import static com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
@@ -110,4 +108,27 @@ class RiotWebClientSpec extends IntegrationTestSupport {
         and:
         verify(RETRY_MAX_ATTEMPTS, getRequestedFor(path))
     }
+
+    def "클라이언트는 라이엇 API의 응답 시간이 초과되면 재시도 후 예외를 발생한다."() {
+        given:
+        def apiKey = "MOCK_API_KEY"
+        def path = urlEqualTo(webClient.ACTIVE_GAME_PATH+MOCK_SUMMONER_ID)
+        def response = WireMock.aResponse()
+                .withStatus(HttpStatus.OK.value())
+                .withHeader(HTTP.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+                .withBody(gson.toJson(FakeCurrentGameInfoResponse.create(MOCK_SUMMONER_ID)))
+                .withFixedDelay(6000)
+
+        stubFor(get(path).willReturn(response))
+
+        when:
+        webClient.getCurrentGameBySummoner(apiKey, MOCK_SUMMONER_ID)
+
+        then:
+        thrown(FeignException.class)
+
+        and:
+        verify(RETRY_MAX_ATTEMPTS, getRequestedFor(path))
+    }
+
 }

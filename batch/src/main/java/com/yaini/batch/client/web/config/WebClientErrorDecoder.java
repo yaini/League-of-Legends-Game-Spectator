@@ -16,8 +16,10 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 
+@Slf4j
 public class WebClientErrorDecoder implements ErrorDecoder {
 
   static final DateFormat RFC822_FORMAT =
@@ -28,7 +30,7 @@ public class WebClientErrorDecoder implements ErrorDecoder {
     FeignException exception = errorStatus(methodKey, response);
     Date retryAfter = this.retryAfter(firstOrNull(response.headers(), RETRY_AFTER));
     int httpStatus = response.status();
-
+    log.info("[error] {}", exception.toString());
     if (HttpStatus.valueOf(httpStatus).is5xxServerError()) {
 
       return new RetryableException(
