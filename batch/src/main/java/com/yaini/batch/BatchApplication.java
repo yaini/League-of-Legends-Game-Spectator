@@ -1,16 +1,15 @@
 package com.yaini.batch;
 
+import com.yaini.batch.client.web.config.FeignConfig;
 import com.yaini.batch.job.config.BatchConfig;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Import;
 
 @EnableBatchProcessing
-@EnableFeignClients
 @SpringBootApplication
-@Import(BatchConfig.class)
+@Import({BatchConfig.class, FeignConfig.class})
 public class BatchApplication {
   public static void main(String[] args) {
     SpringApplication.run(BatchApplication.class, args);

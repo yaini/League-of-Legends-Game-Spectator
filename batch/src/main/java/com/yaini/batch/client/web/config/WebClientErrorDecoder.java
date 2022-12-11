@@ -4,6 +4,7 @@ import static feign.FeignException.errorStatus;
 import static feign.Util.RETRY_AFTER;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
+import com.yaini.batch.client.web.support.exception.ResourceNotFoundException;
 import feign.FeignException;
 import feign.Response;
 import feign.RetryableException;
@@ -39,7 +40,8 @@ public class WebClientErrorDecoder implements ErrorDecoder {
           response.request());
     } else if (HttpStatus.valueOf(httpStatus).is4xxClientError()) {
       if (HttpStatus.NOT_FOUND.value() == httpStatus) {
-        return null;
+
+        return new ResourceNotFoundException();
       }
 
       return new RetryableException(
